@@ -7,13 +7,17 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    maxWidth: "800px",
+    overflow: "auto",
+    margin: "0 60px",
   },
   paper: {
-    margin: "0 auto",
-    maxWidth: "600px",
+    width: 400,
+    height: 100,
     [theme.breakpoints.up("xs")]: {
-      margin: "0 0 10px 0",
+      margin: "5px 0",
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: "5px 0",
     },
   },
 }));
@@ -21,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
 function DashboardCard({ score, timer, index, totalquestion }) {
   const classes = useStyles();
   return (
-    <Grid container className={classes.container} spacing={3}>
-      <Grid item xs={4} sm={12} md={4}>
+    <Grid container direction="column" className={classes.container}>
+      <Grid item>
         <Card className={classes.paper}>
           <CardContent>
             <Typography component="h5" variant="h5">
@@ -34,7 +38,7 @@ function DashboardCard({ score, timer, index, totalquestion }) {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={4} sm={12} md={4}>
+      <Grid item>
         <Card className={classes.paper}>
           <CardContent>
             <Typography component="h5" variant="h5">
@@ -47,7 +51,7 @@ function DashboardCard({ score, timer, index, totalquestion }) {
         </Card>
       </Grid>
 
-      <Grid item xs={4} sm={12} md={4}>
+      <Grid item>
         <Card className={classes.paper}>
           <CardContent>
             <Typography component="h5" variant="h5">

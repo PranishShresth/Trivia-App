@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import QuizCard from "./../../components/QuizCard/QuizCard";
-
 import CircularProgress from "@material-ui/core/CircularProgress";
 import GameOver from "./../../components/GameOver/GameOver";
 import { makeStyles } from "@material-ui/core/styles";
 import DashboardCard from "./../../components/DashboardCard/DashboardCard";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Form from "./../Form/Form";
+import Slide from "@material-ui/core/Slide";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +47,11 @@ function Quiz({ question }) {
     } else {
       setGameOver(true);
     }
+
     setDisableRadio(false);
+  };
+  const createTimer = () => {
+    setTimer((timer) => timer + 1);
   };
 
   const handleAnswerChange = (ans) => {
@@ -64,10 +71,6 @@ function Quiz({ question }) {
     }
   };
 
-  const createTimer = () => {
-    setTimer((timer) => timer + 1);
-  };
-
   //render quiz card only if array has length more than 0
   if (question.length > 0) {
     return (
@@ -76,36 +79,28 @@ function Quiz({ question }) {
         {gameOver ? (
           <GameOver score={score} timer={timer} question={question.length} />
         ) : (
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            className={classes.container}
-          >
-            <DashboardCard
-              score={score}
-              index={index}
-              totalquestion={question.length}
-              timer={timer}
+          <>
+            <QuizCard
+              onAnswerChange={handleAnswerChange}
+              gameOver={gameOver}
+              disabled={disableRadio}
+              handleNext={handleNext}
+              handleAnswer={handleAnswer}
+              question={question[index]}
+              timer={createTimer}
             />
-
-            <Grid item xs={10} md={12}>
-              <QuizCard
-                onAnswerChange={handleAnswerChange}
-                gameOver={gameOver}
-                disabled={disableRadio}
-                handleNext={handleNext}
-                handleAnswer={handleAnswer}
-                question={question[index]}
-                timer={createTimer}
-              />
-            </Grid>
-          </Grid>
+            {/* </div> */}
+          </>
         )}
       </>
     );
   } else {
-    return <CircularProgress color="secondary" />;
+    return (
+      <>
+        <CircularProgress color="secondary" />
+        <Typography> Question not Loaded</Typography>
+      </>
+    );
   }
 }
 export default Quiz;

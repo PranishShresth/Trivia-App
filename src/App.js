@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   const [questions, setQuestions] = useState([]);
+
   const getQuestions = (data) => {
     setQuestions(data);
   };

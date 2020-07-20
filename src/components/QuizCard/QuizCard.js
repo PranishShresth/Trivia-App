@@ -10,18 +10,21 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const useStyles = makeStyles((theme) => ({
+  // root: {
+  //   display: "flex",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   height: "100%",
+  // },
   root: {
-    maxWidth: "800px",
-    margin: "0 auto",
-    minHeight: "200px",
-  },
-  item: {
     width: "80%",
-    margin: "10px",
   },
   question: {
-    [theme.breakpoints.up("xs")]: {
-      fontSize: "20px",
+    fontWeight: "1000",
+    fontSize: "20px",
+    textAlign: "center",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "30px",
     },
   },
 }));
@@ -45,9 +48,9 @@ const QuizCard = ({
   useEffect(() => {
     var mytimer = setInterval(timer, 1000);
     return () => {
-      clearTimeout(mytimer);
+      clearInterval(mytimer);
     };
-  }, []);
+  }, []); //dependency timer, useEffect runs every time when timer changes
 
   const decode = (str) => {
     const textArea = document.createElement("textarea");
@@ -56,68 +59,78 @@ const QuizCard = ({
   };
 
   return (
-    <Card className={classes.root}>
-      <CardContent>
+    <Grid
+      container
+      justify="center"
+      alignItems="center"
+      direction="column"
+      style={{ height: "100%" }}
+    >
+      <Grid item>
         <Typography
           className={classes.question}
           gutterBottom
-          variant="h5"
+          variant="h2"
           component="h2"
         >
           {decode(question)}
         </Typography>
-
-        <RadioGroup
-          aria-label="quiz"
-          name="quiz"
-          value={value}
-          onChange={handleRadioChange}
-        >
-          <Grid container>
+      </Grid>
+      <Card className={classes.root}>
+        <CardContent>
+          <RadioGroup
+            aria-label="quiz"
+            name="quiz"
+            value={value}
+            onChange={handleRadioChange}
+          >
+            {/* <Grid container> */}
             {incorrect_answers.map((inc) => {
               return (
-                <Grid key={inc} item xs={6}>
-                  <FormControlLabel
-                    value={decode(inc)}
-                    control={<Radio disabled={disabled} />}
-                    label={decode(inc)}
-                  />
-                </Grid>
+                // <Grid  item xs={6}>
+                <FormControlLabel
+                  key={inc}
+                  value={decode(inc)}
+                  control={<Radio disabled={disabled} />}
+                  label={decode(inc)}
+                />
+                // </Grid>
               );
             })}
-            <Grid item xs={6}>
-              <FormControlLabel
-                value={decode(correct_answer)}
-                control={<Radio disabled={disabled} />}
-                label={decode(correct_answer)}
-              />
-            </Grid>
-          </Grid>
-        </RadioGroup>
-        {!disabled ? (
-          <Button
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            onClick={() => {
-              handleAnswer();
-            }}
-          >
-            Choose
-          </Button>
-        ) : (
-          <Button
-            onClick={() => {
-              handleNext();
-            }}
-            variant="outlined"
-            color="primary"
-          >
-            Next
-          </Button>
-        )}
-      </CardContent>
-    </Card>
+            {/* <Grid item xs={6}> */}
+            <FormControlLabel
+              value={decode(correct_answer)}
+              control={<Radio disabled={disabled} />}
+              label={decode(correct_answer)}
+            />
+            {/* </Grid>
+            </Grid> */}
+          </RadioGroup>
+          {!disabled ? (
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.button}
+              onClick={() => {
+                handleAnswer();
+              }}
+            >
+              Choose
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                handleNext();
+              }}
+              variant="outlined"
+              color="primary"
+            >
+              Next
+            </Button>
+          )}
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 
