@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "800px",
     margin: "0 auto",
-    minHeight: "250px",
+    minHeight: "200px",
   },
   item: {
     width: "80%",

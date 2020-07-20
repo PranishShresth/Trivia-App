@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import QuizCard from "./../../components/QuizCard/QuizCard";
-import Paper from "@material-ui/core/Paper";
-import LinearProgress from "@material-ui/core/LinearProgress";
+
 import CircularProgress from "@material-ui/core/CircularProgress";
 import GameOver from "./../../components/GameOver/GameOver";
 import { makeStyles } from "@material-ui/core/styles";
+import DashboardCard from "./../../components/DashboardCard/DashboardCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,9 +15,8 @@ const useStyles = makeStyles((theme) => ({
   container: {
     height: "100%",
   },
-  paper: {
+  item: {
     margin: "0 auto",
-    maxWidth: "800px",
   },
 }));
 
@@ -75,7 +74,7 @@ function Quiz({ question }) {
       <>
         {/* render GameOver if gameOver bool is true */}
         {gameOver ? (
-          <GameOver score={score} />
+          <DashboardCard score={score} timer={timer} />
         ) : (
           <Grid
             container
@@ -83,15 +82,13 @@ function Quiz({ question }) {
             alignItems="center"
             className={classes.container}
           >
-            <Grid item xs={10} md={12}>
-              {timer}
-              <Paper className={classes.paper} elevation={3}>
-                <LinearProgress
-                  variant="determinate"
-                  value={Math.ceil((index / (question.length - 1)) * 100)}
-                />
-              </Paper>
-            </Grid>
+            <DashboardCard
+              score={score}
+              index={index}
+              totalquestion={question.length}
+              timer={timer}
+            />
+
             <Grid item xs={10} md={12}>
               <QuizCard
                 onAnswerChange={handleAnswerChange}
