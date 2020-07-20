@@ -74,7 +74,7 @@ function Quiz({ question }) {
       <>
         {/* render GameOver if gameOver bool is true */}
         {gameOver ? (
-          <DashboardCard score={score} timer={timer} />
+          <GameOver score={score} timer={timer} question={question.length} />
         ) : (
           <Grid
             container
