@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Header from "./components/Header/Header";
+import Form from "./pages/Form/Form";
+import Quiz from "./pages/Quiz/Quiz";
+import Fade from "@material-ui/core/Fade";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
+  const [questions, setQuestions] = useState([]);
+  const getQuestions = (data) => {
+    setQuestions(data);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Header />
+        <div className="container">
+          <Route
+            exact
+            path="/"
+            render={(props) => <Form {...props} getQuestions={getQuestions} />}
+          ></Route>
+          <Route
+            path="/trivia"
+            render={(props) => <Quiz {...props} question={questions} />}
+          ></Route>
+        </div>
+      </Router>
+    </>
   );
 }
 
