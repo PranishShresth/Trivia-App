@@ -48,9 +48,9 @@ const QuizCard = ({
   timer,
 }) => {
   const classes = useStyles();
+  const answers = [...incorrect_answers, correct_answer];
   const [value, setValue] = useState("");
   const [shuffledAnswer, setShuffledAnswer] = useState([]);
-  const answers = [...incorrect_answers, correct_answer];
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -73,8 +73,9 @@ const QuizCard = ({
       }
       return arr;
     };
-    const shuffle = shuffleAnswers(answers);
-    setShuffledAnswer(shuffle);
+
+    setShuffledAnswer(shuffleAnswers(answers));
+
     var mytimer = setInterval(timer, 1000);
     return () => {
       clearInterval(mytimer); //after component unmounts
@@ -113,20 +114,17 @@ const QuizCard = ({
             value={value}
             onChange={handleRadioChange}
           >
-            {/* <Grid container> */}
-            {shuffledAnswer.map((ans) => {
-              return (
-                // <Grid  item xs={6}>
-                <FormControlLabel
-                  key={ans}
-                  value={decode(ans)}
-                  control={<Radio disabled={disabled} />}
-                  label={decode(ans)}
-                />
-                // </Grid>
-              );
-            })}
-            {/* <Grid item xs={6}> */}
+            {shuffledAnswer &&
+              shuffledAnswer.map((ans) => {
+                return (
+                  <FormControlLabel
+                    key={ans}
+                    value={decode(ans)}
+                    control={<Radio disabled={disabled} />}
+                    label={decode(ans)}
+                  />
+                );
+              })}
           </RadioGroup>
           {!disabled ? (
             <Button

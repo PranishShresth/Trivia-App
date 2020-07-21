@@ -22,7 +22,7 @@ function App() {
             <Route
               exact
               path="/"
-              render={(props) => 
+              render={(props) => (
                 <Form {...props} getQuestions={getQuestions} />
               )}
             ></Route>
