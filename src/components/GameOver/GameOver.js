@@ -1,7 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,6 +7,17 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
+  alertSuccess: {
+    border: "1px solid rgb(214,233,198)",
+    backgroundColor: "rgb(223, 240, 216)",
+    color: "rgb(70, 136, 71)",
+  },
+  alertDanger: {
+    border: "1px solid rgb(238,211,215)",
+    backgroundColor: " rgb(242,222,222)",
+    color: "rgb(185,74,72)",
+  },
+
   container: {
     width: "80%",
     margin: "auto",
@@ -44,22 +53,21 @@ function GameOver({ score, timer, question }) {
           Your score percentage is {percentageScore}
         </Typography>
         <Typography>
-          Your score is deemed:
           {percentageScore <= 30 ? (
-            <span style={{ backgroundColor: "#BF0E08", color: "white" }}>
-              Below Average
+            <span className={classes.alertDanger}>
+              Your score is deemed: Poor
             </span>
           ) : percentageScore >= 30 && percentageScore <= 50 ? (
-            <span style={{ backgroundColor: "#BF0E08", color: "white" }}>
-              Average
+            <span className={classes.alertDanger}>
+              Your score is deemed: Average
             </span>
           ) : percentageScore >= 50 && percentageScore <= 80 ? (
-            <span style={{ backgroundColor: "#00783E", color: "white" }}>
-              Below Average
+            <span className={classes.alertSuccess}>
+              Your score is deemed: Good
             </span>
           ) : (
-            <span style={{ backgroundColor: "#00783E", color: "white" }}>
-              Excellent
+            <span className={classes.alertSuccess}>
+              Your score is deemed: Excellent
             </span>
           )}
         </Typography>
