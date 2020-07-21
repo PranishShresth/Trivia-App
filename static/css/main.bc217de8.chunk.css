@@ -1,0 +1,2 @@
+*,:after,:before{box-sizing:border-box}html{scroll-behavior:smooth}body,html{height:100%}body{margin:0;padding:0;background:#ada996;background:linear-gradient(90deg,#eaeaea,#dbdbdb,#f2f2f2,#ada996)}#root{height:100%}.container{height:calc(100% - 50px)}.quiz-card{display:flex;direction:column}
+/*# sourceMappingURL=main.bc217de8.chunk.css.map */
