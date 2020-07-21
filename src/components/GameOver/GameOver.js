@@ -10,9 +10,10 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    margin: "0 auto",
     width: "80%",
-    height: "400px",
+    margin: "auto",
+
+    height: "100%",
     textAlign: "center",
     background: "#ffffff",
   },
@@ -23,13 +24,16 @@ function GameOver({ score, timer, question }) {
 
   let percentageScore = ((score / question) * 100).toFixed(2);
   return (
-    <Grid container className={classes.container}>
+    <Grid
+      container
+      justify="center"
+      alignItems="center"
+      className={classes.container}
+    >
       <Grid item xs={12} md={12}>
         <Typography component="h4" variant="h4">
           YOUR RESULTS
         </Typography>
-      </Grid>
-      <Grid item xs={12} md={12}>
         <Typography variant="subtitle1" color="textSecondary">
           Your Score: {score}
         </Typography>

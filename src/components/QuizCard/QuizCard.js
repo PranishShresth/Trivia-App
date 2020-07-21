@@ -39,6 +39,8 @@ const QuizCard = ({
 }) => {
   const classes = useStyles();
   const [value, setValue] = useState("");
+  const [shuffledAnswer, setShuffledAnswer] = useState([]);
+  const answers = [...incorrect_answers, correct_answer];
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -46,11 +48,28 @@ const QuizCard = ({
   };
 
   useEffect(() => {
+    //Fisher Yates shuffle algorithm
+
+    const shuffleAnswers = (arr) => {
+      var currInd = arr.length;
+      var tmp, randInd;
+      while (0 != currInd) {
+        randInd = Math.floor(Math.random() * arr.length);
+        currInd--;
+
+        tmp = arr[currInd];
+        arr[currInd] = arr[randInd];
+        arr[randInd] = tmp;
+      }
+      return arr;
+    };
+    const shuffle = shuffleAnswers(answers);
+    setShuffledAnswer(shuffle);
     var mytimer = setInterval(timer, 1000);
     return () => {
-      clearInterval(mytimer);
+      clearInterval(mytimer); //after component unmounts
     };
-  }, []); //dependency timer, useEffect runs every time when timer changes
+  }, [question]);
 
   const decode = (str) => {
     const textArea = document.createElement("textarea");
@@ -85,26 +104,19 @@ const QuizCard = ({
             onChange={handleRadioChange}
           >
             {/* <Grid container> */}
-            {incorrect_answers.map((inc) => {
+            {shuffledAnswer.map((ans) => {
               return (
                 // <Grid  item xs={6}>
                 <FormControlLabel
-                  key={inc}
-                  value={decode(inc)}
+                  key={ans}
+                  value={decode(ans)}
                   control={<Radio disabled={disabled} />}
-                  label={decode(inc)}
+                  label={decode(ans)}
                 />
                 // </Grid>
               );
             })}
             {/* <Grid item xs={6}> */}
-            <FormControlLabel
-              value={decode(correct_answer)}
-              control={<Radio disabled={disabled} />}
-              label={decode(correct_answer)}
-            />
-            {/* </Grid>
-            </Grid> */}
           </RadioGroup>
           {!disabled ? (
             <Button
