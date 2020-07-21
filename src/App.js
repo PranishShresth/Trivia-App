@@ -4,7 +4,7 @@ import Header from "./components/Header/Header";
 import Form from "./pages/Form/Form";
 import Quiz from "./pages/Quiz/Quiz";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   const [questions, setQuestions] = useState([]);
@@ -15,14 +15,14 @@ function App() {
 
   return (
     <>
-      <Router>
+      <Router basename="/">
         <Switch>
           <div className="container">
             <Header />
             <Route
               exact
               path="/"
-              render={(props) => (
+              render={(props) => 
                 <Form {...props} getQuestions={getQuestions} />
               )}
             ></Route>
