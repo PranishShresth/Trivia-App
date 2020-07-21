@@ -87,6 +87,7 @@ function Quiz({ question }) {
               disabled={disableRadio}
               handleNext={handleNext}
               handleAnswer={handleAnswer}
+              index={index}
               question={question[index]}
               timer={createTimer}
             />

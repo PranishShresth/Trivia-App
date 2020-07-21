@@ -16,9 +16,17 @@ const useStyles = makeStyles((theme) => ({
   //   alignItems: "center",
   //   height: "100%",
   // },
-
+  gridItem: {
+    [theme.breakpoints.up("xs")]: {
+      margin: 20,
+    },
+    [theme.breakpoints.up("sm")]: {
+      margin: 40,
+    },
+  },
   root: {
     width: "80%",
+    height: "250px",
   },
   question: {
     fontWeight: "1000",
@@ -32,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 const QuizCard = ({
   question: { question, incorrect_answers, correct_answer },
+  index,
   handleNext,
   handleAnswer,
   disabled,
@@ -86,14 +95,14 @@ const QuizCard = ({
       direction="column"
       style={{ height: "100%" }}
     >
-      <Grid item>
+      <Grid item className={classes.gridItem}>
         <Typography
           className={classes.question}
           gutterBottom
           variant="h2"
           component="h2"
         >
-          {decode(question)}
+          Question {index + 1}: {decode(question)}
         </Typography>
       </Grid>
       <Card className={classes.root}>
